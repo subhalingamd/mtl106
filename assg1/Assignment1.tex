@@ -1,0 +1,289 @@
+\documentclass[12pt, oneside]{article}
+\usepackage{a4wide}
+\usepackage{oldgerm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext}
+\setlength{\textheight}{8.875in} \setlength{\textwidth}{6.875in}
+\setlength{\columnsep}{0.3125in} \setlength{\topmargin}{0in}
+\setlength{\headheight}{0in} \setlength{\headsep}{0in}
+\setlength{\parindent}{1pc} \setlength{\oddsidemargin}{-.304in}
+\setlength{\evensidemargin}{-.304in}
+
+
+
+\begin{document}
+\setlength{\textheight}{8.5in}
+\centering {\bf MTL 106 (Introduction to Probability Theory and Stochastic Processes) }\\
+
+
+\centering{\bf Assignment 1 Report}
+
+
+
+\vskip 0.5cm
+
+\noindent Name: Subhalingam D~~ ~~~  ~~~~~ ~~~~ ~~~~~~~~~~~~~~~~ Entry Number: 2018MT10770~~~~~~~~~~~
+
+
+
+\vskip 0.5cm
+
+
+
+\begin{enumerate}
+
+\item Basic Probability
+
+\noindent \textbf{Suppose students are allowed to audit one core course in the online semester and a student who has taken four courses $\{A,B,C,D\}=\Omega$ would like to audit one of them. Let $F$ be the largest $\sigma$-field on $\Omega$. Find $F$. Let $P$ be a probability function defined on $F$. If the probability of auditing course A,B,C are given as $P(\{A\})=0.5$,$P(\{B\})=0.2$,$P(\{C\})=0.1$. Assuming that the , find $P(\{D\})$ if possible. Also find $P(\{A\}\cap\{B\})$ and $P(\{A\}\cup\{C\})$. 
+}
+
+The largest $\sigma$-field is the power set of $\Omega$. So, $F=\{\emptyset,\{A\},\{B\},\{C\},\{D\},\{A,B\},\{A,C\},$\\$ \{A,D\},\{B,C\},\{B,D\},\{B,C\},\{A,B,C\},\{A,B,D\},\{A,C,D\},\{B,C,D\},\Omega\}$.
+
+Using the fact that events are disjoint, $P(\{A\}\cup\{B\}\cup\{C\}\cup\{D\})$ = $P(\{A\}) + P(\{B\}) + P(\{C\}) + P(\{D\})$ (Kolmogrov's third axiom of probability) and since the LHS is $P(\Omega)=1$ (Kolmogrov's second axiom of probability). So, $P(\{D\}) = 0.2$.
+
+$P(\{A\}\cap\{B\})$ = $P(\emptyset)$ (as they are disjoint) = $1-P(\Omega)$ = 0.
+
+$P(\{A\}\cup\{C\})$ = $P(\{A\}) + P(\{C\})$ = $0.5+0.1$ = 0.6
+
+
+
+\item Random Variable/Function of a Random Variable
+
+\noindent\textbf{Consider the event of tossing a fair coin independent of rv $Y$. Let $X$ be defined as $X=Y$ if the result of toss is tails and $X=Y+3$ if it is heads. Find the probability of tails given that $X=4$.
+}
+
+Define $Z$ as Bernoulli variable with $Z=1$ if coin is tails $Z=0$ if coin is heads. Because of fair coin, the probabilities are equally likely and each equals to 1/2. 
+
+Using Baye's Theorem, 
+$P(Z=1,X=4)$ = $\frac{P(Z=1)f_{X|Z=1}(4)}{P(Z=1)f_{X|Z=1}(4)+ P(Z=0)f_{X|Z=0}(4)}$.
+
+Note that, $f_{X|Z=1}(x)=f_Y(x)$ and $f_{X|Z=0}(x)=f_Y(x-3)$.
+
+Substituting the values, we get $P(Z=1,X=4)$ = $\frac{P(Z=1)f_Y(4)}{P(Z=1)f_Y(4)+ P(Z=0)f_Y(1)}$ = $\frac{e^{-8}}{e^{-8}+e^{-2}}$
+
+
+
+\item Two Dimensional Random Variables
+
+\noindent\textbf{Consider rv $X$ having Exponential distribution with mean 1. Another rv $Y$ is constructed such that given $X=x$, $Y$ is exponentially distributed with mean $1/x$. Find $f_{X|Y}(x|4)$ that is the conditional pdf of $X$ given $Y=4$.}
+
+For Exponential distribution with mean $\mu$, its parameter $\lambda$ is given by $1/\mu$. So $X\sim Exponential(1)$ and pdf of $X$ is $e^{-x}$ if $x>0$ and $0$ otherwise. \\
+From the definition of $Y$, $f_{Y|X}(y|x) = xe^{-xy}$ for $y>0$ and 0 otherwise (since mean is $1/x$, its parameter $\lambda=x$). \\
+To obtain $f_{X,Y}(x,y)$, the joint distribution, we use the fact that $f_{Y|X}(y|x) = \frac{f_{X,Y}(x,y)}{f_X(x)}$. Using $f_{Y|X}(y|x)$ and $f_X(x)$ obtained above, we get
+\[
+    f_{X,Y}(x,y) = 
+    \begin{cases}
+               xe^{-(1+y)x} & x>0, y>0\\
+               0 & \text{otherwise}\\
+    \end{cases}
+\]
+The marginal distribution of $Y$, i.e., $f_Y(y)$ can be obtained by integrating $f_{X,Y}(x,y)$ over $x$.
+So, $f_Y(y)=\int_X f_{X,Y}(x,y)dx = \int_0^\infty xe^{-(1+y)x}dx $. Applying by-parts and substituting the limits, we get 
+\[
+    f_Y(y) = 
+    \begin{cases}
+               \frac{1}{(y+1)^2} & y>0\\
+               0 & \text{otherwise}\\
+    \end{cases}
+\]
+So, $f_{X|Y}(x|4) = \frac{f_{X,Y}(x,4)}{f_Y(4)} = \frac{xe^{-(1+4)x}}{\frac{1}{(4+1)^2}}$ for $x>0$.
+\[
+    f_{X|Y}(x|4) = 
+    \begin{cases}
+               25xe^{-5x} & x>0\\
+               0 & \text{otherwise}\\
+    \end{cases}
+\]
+
+
+
+\item Two Dimensional Random Variables
+
+\noindent \textbf{ If $X_1,X_2$ are iid random variables each Exponentially distributed with parameter $\lambda$. Let $Y_1 = X_2/X_1 + X_2$ and $Y_2 = X_1+X_2$. Find the joint pmf $f_{Y_1,Y_2}(y_1,y_2)$. Are $Y_1$ and $Y_2$ independent?}
+
+Since $X_1$ and $X_2$ are iid $Exponential(\lambda)$, the joint pmf is given by $f_{X_1,X_2}(x_1,x_2) = \lambda e^{-\lambda x_1} \cdot \lambda e^{-\lambda x_2} = \lambda^2 e^{-\lambda (x_1+x_2)}$ for $x_1,x_2>0$ and 0 otherwise.
+
+Let's find the inverses. From observation, $X_2=Y_1Y_2$ and $X_1 = Y_2 - X_2 = Y_2(1-Y_1)$.
+
+Let's find the Jacobian. 
+Firstly, $\frac{\partial x_1}{\partial y_1} = -y_2$, $\frac{\partial x_1}{\partial y_2} = (1-y_1)$, $\frac{\partial x_2}{\partial y_1} = y_2$ and $\frac{\partial x_2}{\partial y_2} = y_1$ 
+
+$J(y_1,y_2)  =
+\begin{vmatrix}
+\frac{\partial x_1}{\partial y_1} & \frac{\partial x_1}{\partial y_2} \\
+\frac{\partial x_2}{\partial y_1} & \frac{\partial x_2}{\partial y_2} \\
+\end{vmatrix}
+=
+\begin{vmatrix}
+-y_2 & (1-y_1) \\
+y_2 & y_1 \\
+\end{vmatrix}
+= -y_2y_1 - y_2 + y_1y_2 = -y_2$
+
+% $|J(y_1,y_2)| = |y_2|$ 
+
+Before using change of variables formula,we can observe that $y_1$ and $y_2$ should lie in the interval $0<y_1<1$ and $y_2>0$ for non-negative density. So,  $|J(y_1,y_2)| = y_2$ 
+
+Now, applying the change of variables formula, 
+$f_{Y_1,Y_2}(y_1,y_2) = \lambda^2 e^{-\lambda (y_2(1-y_1)+(y_1y_2)}\cdot y_2 = \lambda^2 y_2 e^{-\lambda y_2} $ for $0<y_1<1$ and $y_2>0$
+
+It can be observed $Y_1$ and $Y_2$ are independent as they can written as product of two distributions where $Y_1 \sim Uniform(0,1)$ and $Y_2 \sim Gamma(2,\lambda)$.
+
+
+\item Higher Dimensional Random Variables
+
+\noindent \textbf{Suppose a group of $n(>2)$ people are playing the Stone, Paper, Scissor game with the following rules. Each player chooses an option from \{Stone,Paper,Scissor\}. 'Stone' wins with 'Scissor', the 'Scissor' wins with 'Paper' and 'Paper' wins with 'Stone' (so assume that the option that a player chooses is equally likely). Since there are more than two players, they make a rule that there can be a winner if and only if everyone has chosen from exactly two options from the three, i.e., number of people choosing one of the choice must be zero and other two choices must be non-zero. Also, the winners are decided as a 'group' based on the choices and 'which option wins against which option rule' above. They end the game if such a group of winners can be found. Find the probability that the game ends in the round played.}
+
+Suppose out of $n$ people, $X$ denote people who chose Stone, $Y$ denote people who chose Paper and $Z$ denote people who chose Scissor. Then the joint distribution of $P(X=x,Y=y,Z=z)$ where $x+y+z+n$ is given by $\frac{n!}{x!y!z!}\big(\frac{1}{3}\big)^{x+y+z}$ as each person has 3 equally likely choices which can be permuted (it can be obtained easily making use of multinomial theorem).
+
+Now, there is an end result iff there is no one who picks one of the three choices and at least one person has chosen any of the other two choices. More formally, exactly one of X,Y,Z should be exactly zero (and other two should be non-zero)..
+
+So, P((\text{there is an end result}) = $\sum_{y=1}^{n-1} P(X=0,Y=y,Z=n-y)+ \sum_{x=1}^{n-1}P(X=x,Y=0,Z=n-x) +  \sum_{x=1}^{n-1} P(X=x,Y=n-x,Z=0)$.
+
+It can be observed that all the cases are disjoint. So, for some $i \in \mathbb{N}$, $P(\text{there is an end result}) = 3\cdot \sum_{i=1}^{n-1} P(X=i,Y=n-i,Z=0) = 3 \cdot \sum_{i=1}^{n-1}\frac{n!}{i!(n-i)!}\frac{1}{3^n} = 3 \cdot \frac{2^n-2}{3^n}$ as $\sum_{r=0}^{n} ^nC_r = 2^n$ and $^nC_0 = ^nC_n = 1$. 
+
+Hence, $P(\text{there is an end result}) = \frac{2^n-2}{3^{n-1}}$
+
+\item Higher Dimensional Random Variables
+
+\noindent \textbf{Let r.v. $X_1 \sim N(0,1)$ and $X_i \sim N(X_{i-1},1)$ for $i\ge2$. What is the distribution of $X_i$ (without having other $X_j$ terms)? Can you find the expectation and variance of $X_i$ from the distribution itself (without rigorous calculations)?\\
+%(b) Suppose, $Y \sim Poisson(\lambda)$ and $Z_j \sim N(Y,1)$ for $1\le j \le n$. Show that $W = \sum_{j=1}^n Z_j \sim Poisson(n\lambda) + N(0,n).$
+}
+%(a).
+The distribution of $X_i$ is $N(X_{i-1},1)$ which can be written as $X_{i-1} + N(0,1)$. Telescoping, we get $X_i = \sum_{j=1}^{i} N(0,1) = i\cdot N(0,1)$
+
+To show the reproductive property for normal distribution, we make use of the MGF. Suppose $B=A_1,A_2,\dots,A_n$ be iid $N(0,1)$ ($\mu = 0$, $\sigma^2=1$). Then $M_B(t) = M_{\sum_{i=1}^n A_i}(t) = E(e^{\sum_{i=1}^n a_i t}) = (e^{\mu t+ \sigma^2 t^2/2})^n = e^{nt^2/2}$. 
+By uniqueness of MGF property, $B\sim N(0,n)$.
+
+Hence, $X_i \sim N(0,i)$
+
+So $E(X_i) = 0$ and $var(X_i) = i$.
+
+%(b).
+
+
+\item Cross Moments
+
+
+\noindent \textbf{Suppose you have some connecting sticks to play with. One of the end of the stick has a small hollow portion while the other end is filled. A stick can be connected through the hollow part and a non-hollow part only. For sake of convenience, let's call hollow end as H and non-hollow end as N. So a stick can be connected iff H and N are pressed. If H and H (or N and N) are pressed, they do not connect. Suppose a kid has $n$ such sticks and he plays with them. He picks a stick, place it in any of the orientation possible (Either HN or NH) and presses it with previous stick. Suppose this choice of orientation is equally likely and are independent of other sticks. Sticks that are connected form a group. For example, if n=4, the following is possible: HN HN NH NH. In this case, there are two groups possible having two sticks each (first two and last two). If $N$ is the toal number of group of sticks, find $E(N)$ and $var(N)$}
+
+Let $X_i$ denote the orientation of the $i$th stick for $i \in \mathbb{N}$ such that $1 \le i \le n$. If $Y_j$ indicate the orientation of $i$th and $(i+1)$th stick. Obviously,  $j \in \mathbb{N}$ such that $1 \le j \le n-1$. If we denote $Y_j=0$ if the sticks connect (H+N or N+H) and $Y_j=1$ if don't (and belong to different groups). Then the number of groups formed $N$ is given by $N = 1 + \sum_{k=1}^{n-1} Y_k$.
+
+Since, the orientations are equally likely, the probability that two adjacent sticks have the same or different orientations are also equally likely. So $E(Y_j) = 1/2 \forall j$. By using the linearity property of Expectation, $E(N) = 1 + \sum_{k=1}^{n-1} E(Y_k) = 1 + (n-1)\cdot \frac 1 2 = \frac{(n+1)}{2}$ 
+
+$var(N) = var(1 + \sum_{k=1}^{n-1} Y_k) = var(\sum_{k=1}^{n-1} Y_k)$ = $E\big((\sum_{k=1}^{n-1} Y_k)^2\big)-(E\big(\sum_{k=1}^{n-1} Y_k\big))^2$. We have already obtained that $E\big(\sum_{k=1}^{n-1} Y_k\big) = \frac {n-1} {2}$. Also, $E(Y_aY_b) = 1/4$ for $a\ne b$. 
+
+Substituting the values and simplifying, we get $E\big((\sum_{k=1}^{n-1} Y_k)^2\big) = (n^2-n)/4 $ and hence $var(N) = (n-1)/4$
+
+
+
+
+
+\item Cross Moments
+
+\noindent\textbf{ Consider a wire of length $1m$ which is cut into 3 pieces as follows. The first cut is made at a point chosen uniformly at random. A unbiased coin is tossed to decide which part of the wire to use for the second cut. Depending on the result, the chosen wire is again cut at a point chosen uniformly at random. If $X$ denotes the length of leftmost part of the wire, find $E(X)$ and $var(X)$.
+}
+
+Let $Y \sim Uniform(0,1)$ denote the position of first cut to obtain two wires. Without loss of generality, let the first wire (starting from 0) be the left one. The probability that the second cut will be made in the left (first) part is $1/2$ as the coin is unbiased and the probability of each of the two outcomes is equally likely. More formally, if the point where the second cut will be made, denoted by rv $X$ (note that the value itself is the length of the wire), then $X=Y$ with probability $1/2$ and $Z=Uniform(0,Y)$ with probability $1/2$.
+
+To obtain $E(X)$, we can use the fact that $E(X) = E(E(X|Y))$. 
+$E(X|Y) = \frac 1 2 Y + \frac 1 2 \frac Y 2 = \frac {3Y}{4}$
+So, $E(X) = E\big(\frac {3Y}{4}\big) = \frac {3}{4} E(Y) = \frac 3 4 \frac 1 2 = \frac 3 8$.
+
+To obtain $var(X)$, $var(X) = E(var(X|Y)) + var(E(X|Y))$ (by law of total variance) $ = E(E(X^2|Y)-(E(X|Y))^2) + var(E(X|Y))$ (by expanding variance) $ = E\big( \frac 1 2 Y^2 + \frac 1 2 \frac{Y^2}{3} - \big(\frac{3C}{4})^2 \big) + var \big(\frac{3Y}{4}) = \frac{5}{48}E(Y^2)+\frac{9}{16}var(Y)$. 
+
+We know that $var(Y) = 1/12$ and $E(Y^2) = 1/3$. Substituting these values, we get $var(X) = 29/154$.
+
+
+
+
+
+
+
+
+
+
+
+\item Limiting Distributions
+\textbf{
+Suppose you are listening to an audio commentary of a football match with a group of $n$ friends in the hostel room. Suppose, there is a loss in connection and you continue listening to it after connection is back (the portion in between is skipped). In the mean time you come to know that there was a goal scored (through the commentary) but you do not know who scored it and people try to guess. Let $X_i$ denote the guess of the i-th viewer. $X_i=1$ (if the team A has scored) with a probability $p$ and $X_i=-1$ (if team B has scored) with a probability $1-p$. Assume that all $X_i$s are independent. You come up with a model to guess the outcome of the game using variable $Z$ defined as
+\[ Z =
+\begin{cases}
+               1 & $\sum_{i=1}^n X_i \ge 0\\
+               -1 & \text{otherwise}\\
+\end{cases}
+\]
+Find $\lim_{n \to \infty} P(Z=1)$ if (a) $p>0.5$ and (b) $p=0.5$? How do you interpret the results obtained?
+}
+
+Note that since $X_i$ are iid and $E(X_i) = 1\cdot p + (-1)\cdot (1-p) = 2p - 1 $ and $var(X_i) = E((X_i)^2) - E(X_i)^2 = ( (1)^2\cdot p + (-1)^2\cdot (1-p) ) - (2p - 1)^2  = 1 - (2p - 1)^2$
+
+
+For part (a), $(p>0.5)$
+
+$ \lim_{n \to \infty} P(Z=1) = \lim_{n \to \infty} P\bigg(\sum_{i=1}^{n} X_i \ge 0 \bigg) = \lim_{n \to \infty} P\bigg(\frac{\sum_{i=1}^{n} X_i}{\sqrt n} \ge 0 \bigg) $ 
+
+Using Chebyshev's inequality, 
+$\lim_{n \to \infty} P\bigg(|\frac{\sum_{i=1}^{n} X_i}{n} - (2p-1)| > t \bigg) = 0 $ for $t > 0$, Choosing $t = p-0.5$, we get $P\bigg(\frac{\sum_{i=1}^{n} X_i}{n} \le (2p-1)/2 \bigg) = 0$. Thus $ \lim_{n \to \infty} P(Z=1) = 1$ if p>0.5
+
+
+For part (b), $(p=0.5)$
+
+$ \lim_{n \to \infty} P(Z=1) = \lim_{n \to \infty} P\bigg(\sum_{i=1}^{n} X_i \ge 0 \bigg) = \lim_{n \to \infty} P\bigg(\frac{\sum_{i=1}^{n} X_i}{\sqrt n} \ge 0 \bigg) $ 
+
+$E(X_i)=0$ and $var(X_i)=1$. By Central Limit Theorem, $\frac{\sum_{i=1}^{n} X_i}{\sqrt n}$ can be approximated to standard normal distribution and hence, as $n\to\infty$, $P(Z=1) \to \Phi(0)$ which is equal to 1/2.
+
+If $p>0.5$, there is some form of 'bias' on one side (one team). So when $n$ becomes very large, the probability that that team scores becomes 1. If $p=0.5$, It is equally likely for any team to score the goal (according to the friends). So even when $n$ is large, the probability remains 1/2 as clear decision cannot be made.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% END Q 9 %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\item Limiting Distributions
+
+\noindent \textbf{Define pdf $f(x)$ as
+\[
+    f(x) = 
+    \begin{cases}
+               \lambda e^{-\lambda(x-x_0)} & x > x_0\\
+               0 & \text{otherwise}\\
+    \end{cases}
+\] where $x_0,\lambda \in \mathbb{R}$ such that $\lambda > 0$ are constants. Let $X_1,X_2,\dots,X_n$ be $n$ iid random variables each having pdf $f(x)$. If $Y = \min\{X_1,X_2,\dots,X_n\}$. Show that $Y \xrightarrow[]{p} x_0$. 
+}
+
+%First, let us find the cdf of $f_X(x)$ denoted by $F_X(x)$. 
+%\[ F_X(x) = \int_{-\infty}^\infty f(x)dx = \int_{-\infty}^{x_0} 0dx + \int_{x_0}^\infty \lambda e^{-\lambda(x-x_0)} dx = \frac{\lambda e^{-\lambda(x-x_0)}}{-\lambda} \Big]_{x_0}^{\infty}
+%\] = 
+
+For any $x>x_0$, $P(X\ge x) = \int_{x}^\infty \lambda e^{-\lambda(t-x_0)} dt = 
+\frac{\lambda e^{-\lambda(t-x_0)}}{-\lambda} \Big]_{x}^{\infty} 
+= e^{-\lambda(x-x_0)}
+ $ 
+
+So $P(Y \ge y)$ is given by
+\[\def\arraystretch{1.4}
+  \begin{array}{lclr}
+     P(Y \ge y) & = & P(X_1 \ge y, X_2 \ge y, \dots, X_n \ge y) & \text{By definition of }Y\\
+     ~ & = &  P(X_1 \ge y)P(X_2 \ge y)\dots P(X_n \ge y) & X_i\text{s are independent} \\
+     ~ & = &  e^{-\lambda(y-x_0)}\cdot e^{-\lambda(y-x_0)} \dots ~ e^{-\lambda(y-x_0)} & \\
+     ~ &  = & e^{-n\lambda(y-x_0)} &\\ 
+  \end{array}
+\]\\
+
+For $\epsilon > 0$
+
+\[\def\arraystretch{1.4}
+  \begin{array}{lclr}
+     P(|Y - x_0| \ge \epsilon) & = & P(Y - x_0 \ge \epsilon) & Y > x_0\text{ by definition of pdf}\\
+     ~ & = &  P(Y \ge \epsilon + x_0) & \\
+     ~ & = &  e^{-\lambda(n\epsilon)}
+  \end{array}
+\]\\
+
+Then, $\lim_{n \to \infty}P(|Y - x_0| \ge \epsilon) = \lim_{n \to \infty} e^{-\lambda(n\epsilon)} = 0 $
+
+Hence, $Y \xrightarrow[]{p} x_0$
+
+\end{enumerate}
+
+\end{document}
